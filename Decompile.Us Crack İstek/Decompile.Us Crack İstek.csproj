@@ -135,7 +135,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="HTTPWorker.cs" />
-    <Compile Include="Imgur.cs" />
     <Compile Include="Kurallar.cs">
       <SubType>Form</SubType>
     </Compile>

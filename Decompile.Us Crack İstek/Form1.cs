@@ -361,7 +361,7 @@ namespace Decompile.Us_Crack_İstek
             using (dosyaacdialog as OpenFileDialog)
             {
                 dosyaacdialog.ShowDialog();
-                if (dosyaacdialog.FileName == null) return;
+                if (dosyaacdialog.FileName == "") return;
                 Tarama t = new Tarama();
                 t.TaramaYap(this.dosyaacdialog.FileName);
                 this.altbilgi.Text = "Tarama sonucu yükleniyor lütfen bekleyin...";
@@ -389,7 +389,7 @@ namespace Decompile.Us_Crack_İstek
             using (OpenFileDialog dosya = new OpenFileDialog())
             {
                 dosya.ShowDialog();
-                if (dosya.FileName == null) return;
+                if (dosya.FileName == "") return;
                 this.altbilgi.Text = "Program yükleniyor lütfen bekleyin...";
                 ProgramYükle program = new ProgramYükle();
                 string cevap = program.Yükle(dosya.FileName);
