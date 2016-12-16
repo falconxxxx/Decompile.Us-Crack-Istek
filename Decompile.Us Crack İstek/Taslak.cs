@@ -34,10 +34,6 @@ namespace Decompile.Us_Crack_İstek
             this.htmlTextbox1.Text = içerik;
         }
 
-        private void Taslak_FormClosed(object sender, FormClosedEventArgs e)
-        {
-        }
-
         private void kaydetveçık_Click(object sender, EventArgs e)
         {
             Form1 anaform = new Form1();

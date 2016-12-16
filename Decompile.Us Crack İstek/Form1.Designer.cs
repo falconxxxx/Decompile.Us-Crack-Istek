@@ -66,13 +66,13 @@ namespace Decompile.Us_Crack_İstek
             this.resimyukledialog = new System.Windows.Forms.OpenFileDialog();
             this.girisyaparkaplan = new System.ComponentModel.BackgroundWorker();
             this.altaatma = new System.Windows.Forms.NotifyIcon(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.altbilgibölümü = new System.Windows.Forms.StatusStrip();
             this.altbilgilbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.altbilgi = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.altbilgibölümü.SuspendLayout();
             this.SuspendLayout();
             // 
             // girişyap
@@ -152,7 +152,7 @@ namespace Decompile.Us_Crack_İstek
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1099, 28);
             this.menuStrip1.TabIndex = 8;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Text = "üstMenü";
             // 
             // resimYükleToolStripMenuItem
             // 
@@ -381,17 +381,16 @@ namespace Decompile.Us_Crack_İstek
             this.altaatma.Text = "Decompile.Us Programı";
             this.altaatma.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.altaatma_MouseDoubleClick);
             // 
-            // statusStrip1
+            // altbilgibölümü
             // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altbilgibölümü.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.altbilgibölümü.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.altbilgilbl,
             this.altbilgi});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 414);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1099, 25);
-            this.statusStrip1.TabIndex = 10;
-            this.statusStrip1.Text = "statusStrip1";
+            this.altbilgibölümü.Location = new System.Drawing.Point(0, 414);
+            this.altbilgibölümü.Name = "altbilgibölümü";
+            this.altbilgibölümü.Size = new System.Drawing.Size(1099, 25);
+            this.altbilgibölümü.TabIndex = 10;
             // 
             // altbilgilbl
             // 
@@ -411,7 +410,7 @@ namespace Decompile.Us_Crack_İstek
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 439);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.altbilgibölümü);
             this.Controls.Add(this.hatirla);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -434,8 +433,8 @@ namespace Decompile.Us_Crack_İstek
             this.menuStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.altbilgibölümü.ResumeLayout(false);
+            this.altbilgibölümü.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -475,7 +474,7 @@ namespace Decompile.Us_Crack_İstek
         private System.ComponentModel.BackgroundWorker girisyaparkaplan;
         private System.Windows.Forms.NotifyIcon altaatma;
         private System.Windows.Forms.ToolStripMenuItem ekstraDosyaTaratToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip altbilgibölümü;
         private System.Windows.Forms.ToolStripStatusLabel altbilgilbl;
         private System.Windows.Forms.ToolStripStatusLabel altbilgi;
         private System.Windows.Forms.TextBox username;

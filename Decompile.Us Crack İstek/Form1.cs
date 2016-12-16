@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -16,25 +15,24 @@ namespace Decompile.Us_Crack_İstek
         }
 
         #region Gerekliler
+
         private int basilma = 0;
-        HTTPWorker httpworker;
+        private HTTP httpworker;
         private readonly UTF8Encoding utf8 = new UTF8Encoding();
+
         public string ToAscii(string dirty)
         {
             byte[] bytes = utf8.GetBytes(dirty);
             string clean = utf8.GetString(bytes);
             return clean;
         }
+
         public string taslak = "[p][color=#FFA500][b]Program Adı: [/b][/color][color=#87CEFA][b]{0}[/b][/color][/p]" +
             "[p][color=#FFA500][b]Programın indirme linki: [/b][/color][url]{1}[/url][/p]" +
             "[p][color=#FFA500][b]Dosya Boyutu: [/b][/color][color=#9370DB][b]{2}[/b][/color][/p]" +
-            "[p][color=#FFA500][b]Tarama Sonucu:[/b][/color][color=#32CD32][img]{3}[/img][/color][/p]" +
+            "[p][color=#FFA500][b]Tarama Sonucu:[/b][/color][p][img]{3}[/img][/p][/p]" +
             "[p][color=#FFA500][b]Kısıtlamalar:[/b][/color][/p][p][color=#FFDAB9]{4}[/color][/p]" +
             "[p][color=#FFA500][b]Varsa Notunuz:[/b][/color][/p][p][color=#FFDAB9]{5}[/color][/p]";
-
-        #endregion Gerekliler
-
-        #region TaramaİçinGerekliler
 
         private static string BytesToString(long byteCount)
         {
@@ -62,10 +60,6 @@ namespace Decompile.Us_Crack_İstek
             }
             return result;
         }
-
-        #endregion TaramaİçinGerekliler
-
-        #region DeğiştirmeİçinGerekli
 
         private delegate void taramasonucdegis(string newText);
 
@@ -115,7 +109,7 @@ namespace Decompile.Us_Crack_İstek
             }
         }
 
-        #endregion DeğiştirmeİçinGerekli
+        #endregion Gerekliler
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -162,16 +156,24 @@ namespace Decompile.Us_Crack_İstek
 
         private void kullanıcıBilgilerimiSilToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (Ayarlar.Default.şifre != "" && Ayarlar.Default.kullanıcı != "")
             {
-                Ayarlar.Default.şifre = "";
-                Ayarlar.Default.kullanıcı = "";
-                Ayarlar.Default.Save();
-                MessageBox.Show("Kullanıcı bilgileriniz programdan silindi.", "İşlem tamam", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Hata oluştu ! Ek bilgi : Kullanıcı Bilgileri Silme", "HATA !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    Ayarlar.Default.şifre = "";
+                    Ayarlar.Default.kullanıcı = "";
+                    Ayarlar.Default.Save();
+                    if(this.girişyap.Enabled == true)
+                    {
+                        this.username.Text = "";
+                        this.password.Text = "";
+                    }
+                    MessageBox.Show("Kullanıcı bilgileriniz programdan silindi.", "İşlem tamam", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Hata oluştu ! Ek bilgi : Kullanıcı Bilgileri Silme", "HATA !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -180,7 +182,8 @@ namespace Decompile.Us_Crack_İstek
             if (this.basilma == 0)
             {
                 this.dosyaacdialog.Title = "Lütfen Dosya Seçiniz";
-                this.dosyaacdialog.Filter = "(*.exe)|*.exe|(*.dll)|*.dll";
+                this.dosyaacdialog.Filter = "Exe Dosyası (*.exe)|*.exe|Dll Dosyası (*.dll)|*.dll";
+                this.dosyaacdialog.InitialDirectory = Environment.GetEnvironmentVariable("PROGRAMFILES(X86)") ?? Environment.GetEnvironmentVariable("PROGRAMFILES");
                 this.dosyaacdialog.ShowDialog();
                 if ((this.dosyaacdialog.FileName != "") || File.Exists(this.dosyaacdialog.FileName))
                 {
@@ -217,7 +220,7 @@ namespace Decompile.Us_Crack_İstek
 
         private void taramaarkaplan_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            File.Delete(Application.StartupPath + @"\tarmaasonucu.jpg");
+            File.Delete(Application.StartupPath + @"\taramasonucu.jpg");
             Cursor.Current = Cursors.Default;
             this.basilma = 0;
         }
@@ -239,7 +242,6 @@ namespace Decompile.Us_Crack_İstek
                 {
                     this.not.Text += Environment.NewLine + resimyolu;
                     MessageBox.Show("Link hafızaya kopyalanamadı. Not kısmında resim urlsini bulabilirsiniz.", "Resim Yükleme Tamam", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
                 Cursor.Current = Cursors.Default;
             }
@@ -256,7 +258,7 @@ namespace Decompile.Us_Crack_İstek
                 Ayarlar.Default.şifre = this.password.Text;
                 Ayarlar.Default.Save();
             }
-            httpworker = new HTTPWorker();
+            httpworker = new HTTP();
             if (httpworker.GirişYap("http://www.decompile.us", üyebilgi))
             {
                 bilgiekrani("Giriş yapıldı... Hoşgeldin " + this.username.Text + " :)");
@@ -304,6 +306,22 @@ namespace Decompile.Us_Crack_İstek
         {
             if (this.kuraltamam.Checked)
             {
+                foreach (Control kontrol in this.groupBox2.Controls)
+                {
+                    if (kontrol is TextBox)
+                    {
+                        TextBox textbox = kontrol as TextBox;
+                        if (textbox.Text == string.Empty)
+                        {
+                            MessageBox.Show("Lütfen boş alan bırakmayın !", "HATA !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            textbox.Focus();
+                            return;
+                        }
+                    }
+                }
+
+                this.taslak = string.Format(taslak, this.programadi.Text, this.programurl.Text, this.programboyutu.Text, this.taramasonucu.Text, this.kısıtlamalar.Text, this.not.Text);
+                httpworker.KonuAç(taslak, this.programadi.Text);
             }
             else
             {
@@ -330,17 +348,18 @@ namespace Decompile.Us_Crack_İstek
 
         private void onizlemebtn_Click(object sender, EventArgs e)
         {
-            if(this.kuraltamam.CheckState == CheckState.Unchecked)
+            if (this.kuraltamam.CheckState == CheckState.Unchecked)
             {
                 MessageBox.Show("Lütfen kuralları okuyup kabul edin !", "HATA !", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            foreach(Control kontrol in this.groupBox2.Controls)
+
+            foreach (Control kontrol in this.groupBox2.Controls)
             {
-                if(kontrol is TextBox)
+                if (kontrol is TextBox)
                 {
                     TextBox textbox = kontrol as TextBox;
-                    if(textbox.Text == string.Empty)
+                    if (textbox.Text == string.Empty)
                     {
                         MessageBox.Show("Lütfen boş alan bırakmayın !", "HATA !", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         textbox.Focus();
@@ -351,9 +370,8 @@ namespace Decompile.Us_Crack_İstek
 
             this.taslak = string.Format(taslak, this.programadi.Text, this.programurl.Text, this.programboyutu.Text, this.taramasonucu.Text, this.kısıtlamalar.Text, this.not.Text);
 
-            Form form = new Taslak(httpworker.OnIzleme(taslak, this.programadi.Text));
+            Form form = new Taslak(taslak);
             form.ShowDialog();
-            
         }
 
         private void ekstraDosyaTaratToolStripMenuItem_Click(object sender, EventArgs e)
@@ -367,13 +385,12 @@ namespace Decompile.Us_Crack_İstek
                 this.altbilgi.Text = "Tarama sonucu yükleniyor lütfen bekleyin...";
                 ResimYükle r = new ResimYükle();
                 string resimurl = r.Yükle(Application.StartupPath + @"\taramasonucu.jpg");
-                if(this.not.Text == "Varsa notunuzu yazın")
+                if (this.not.Text == "Varsa notunuzu yazın")
                 {
                     this.not.Text = "";
                 }
                 else
                 {
-
                 }
                 this.not.Text += "[IMG]" + resimurl + @"[\IMG]";
                 this.altbilgi.Text = "Bekleniyor...";
@@ -393,7 +410,7 @@ namespace Decompile.Us_Crack_İstek
                 this.altbilgi.Text = "Program yükleniyor lütfen bekleyin...";
                 ProgramYükle program = new ProgramYükle();
                 string cevap = program.Yükle(dosya.FileName);
-                if(cevap != "hata")
+                if (cevap != "hata")
                 {
                     try
                     {
@@ -411,7 +428,6 @@ namespace Decompile.Us_Crack_İstek
                     MessageBox.Show("Program yüklenirken hata oluştu. Lütfen forumdan hatayı bildirin.", "Program Yükleme Tamamlanamadı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 this.altbilgi.Text = "Bekliyor...";
-
             }
         }
     }

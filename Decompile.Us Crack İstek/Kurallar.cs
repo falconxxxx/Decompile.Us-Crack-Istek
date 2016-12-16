@@ -6,8 +6,9 @@ namespace Decompile.Us_Crack_İstek
 {
     public partial class Kurallar : Form
     {
-        HTTPWorker istemci;
-        public Kurallar(HTTPWorker istemci)
+        private HTTP istemci;
+
+        public Kurallar(HTTP istemci)
         {
             this.istemci = istemci;
             InitializeComponent();

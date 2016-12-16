@@ -134,7 +134,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="HTTPWorker.cs" />
+    <Compile Include="HTTP.cs" />
     <Compile Include="Kurallar.cs">
       <SubType>Form</SubType>
     </Compile>

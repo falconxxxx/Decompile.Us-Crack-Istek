@@ -13,7 +13,7 @@ namespace Decompile.Us_Crack_Ýstek
         public string action = "do_login";
     }
 
-    public class HTTPWorker
+    public class HTTP
     {
         private RestClient client;
         public static CookieContainer çerez;
@@ -69,10 +69,12 @@ namespace Decompile.Us_Crack_Ýstek
             return client.Execute(istek).Content.ToString();
         }
 
-        public string OnIzleme(string taslak, string programadý)
+        public string KonuAç(string içerik, string programadý)
         {
-            /*
-            if(PostKey == null)
+            içerik = içerik.Replace("[p]", "");
+            içerik = içerik.Replace("[/p]", @"\n");
+
+            if (PostKey == null)
             {
                 KeyAl();
             }
@@ -80,18 +82,16 @@ namespace Decompile.Us_Crack_Ýstek
             istek.AlwaysMultipartFormData = true;
             istek.AddParameter("my_post_key", PostKey);
             istek.AddParameter("posthash", PostHash);
-            istek.AddParameter("message_new", "123456");
-            istek.AddParameter("message", "123456");
+            istek.AddParameter("message_new", içerik);
+            istek.AddParameter("message", içerik);
             istek.AddParameter("numpolloptions", "2");
-            istek.AddParameter("subject", "123456");
+            istek.AddParameter("subject", programadý);
             istek.AddParameter("action", "do_newthread");
             istek.AddParameter("postoptions[subscriptionmethod]", "email");
-            istek.AddParameter("previewpost", "Önizleme Yap");
             istek.AddParameter("tid", "0");
 
-            return client.Execute(istek).Content.ToString().Replace("<head>", "<head>\n<base href=\"http://www.decompile.us/\" />");
-            */
-            return taslak;
+            return client.Execute(istek).Content;
+            //return "";
         }
     }
 }
